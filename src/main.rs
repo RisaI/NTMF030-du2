@@ -7,8 +7,10 @@ use std::f64::consts::PI;
 const REDUCED_MASS: f64 = 1.;
 const HBAR: f64 = 1.;
 
-/// The chaos threshold constant
-const F: f64 = 34567. / PI.powi(8);
+lazy_static::lazy_static! {
+    /// The chaos threshold constant
+    static ref F: f64 = 34567. / PI.powi(8);
+}
 
 fn v(i: usize, j: usize, r: f64) -> f64 {
     match (i, j) {
@@ -193,7 +195,7 @@ fn get_phases_and_cross_sections(e: f64, r0: f64, n: usize) -> [f64; 4] {
     // I would like to thank plotly.js and it's contributors for
     // providing me the necessary tools to experimentaly detect
     // the chaotic swapping threshold F = 34567 / Pi^8 \approx 3.643
-    let swap = (s[(0, 0)].re - s[(1, 1)].re) > 0. || e > F;
+    let swap = (s[(0, 0)].re - s[(1, 1)].re) > 0. || e > *F;
 
     [
         deltas[if swap { 1 } else { 0 }],
@@ -205,8 +207,8 @@ fn get_phases_and_cross_sections(e: f64, r0: f64, n: usize) -> [f64; 4] {
 
 fn main() {
     // Task 1
-    // println!("Plotting potentials");
-    // plot_potential();
+    println!("Plotting potentials");
+    plot_potential();
     println!("Appears constant for r > 5.5");
 
     // Task 2
@@ -222,7 +224,6 @@ fn main() {
 
     // Task 4 and 5
     println!("Plotting ");
-    // ? sigma = (pi / k^2) sum_k | e^{2i delta_k} - 1 | = (4 pi / k^2) sum_k sin^2 delta_k
 
     // Run the calculation for number of POINTS equidistant in the interval [0,5] a.u.
     const POINTS: usize = 2_000;

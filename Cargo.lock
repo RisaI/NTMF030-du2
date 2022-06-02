@@ -477,6 +477,7 @@ dependencies = [
 name = "scatter-2"
 version = "0.1.0"
 dependencies = [
+ "lazy_static",
  "nalgebra",
  "num-complex",
  "plotly",
