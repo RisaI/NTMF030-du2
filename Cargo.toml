@@ -1,0 +1,12 @@
+[package]
+name = "scatter-2"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+nalgebra = "0.31.0"
+num-complex = "0.4.1"
+plotly = "0.7.0"
+rayon = "1.5.3"
